@@ -6,6 +6,11 @@ sbdata <- paste0("/Users/", user, "/Library/CloudStorage/Dropbox/SwitchBot") |>
   dir(full = TRUE) |> 
   purrr::map(readr::read_csv) |> 
   bind_rows() |> 
-  mutate(across(Timestamp, lubridate::mdy_hms))
+  mutate(across(Timestamp, lubridate::mdy_hms)) |> 
+  arrange(Timestamp) |> 
+  unique()
 
-with(sbdata, plot(Timestamp, `Temperature_Celsius(°C)`, type = "l", col = 4))
+
+
+#with(sbdata, plot(Timestamp, `Temperature_Celsius(°C)`, type = "l", col = 4))
+
