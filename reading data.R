@@ -10,7 +10,6 @@ sbdata <- paste0("/Users/", user, "/Library/CloudStorage/Dropbox/SwitchBot") |>
   arrange(Timestamp) |> 
   unique()
 
-
+write(format(tail(sbdata$Timestamp, 1)), "README.md")
 
 #with(sbdata, plot(Timestamp, `Temperature_Celsius(°C)`, type = "l", col = 4))
-
