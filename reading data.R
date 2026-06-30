@@ -65,9 +65,9 @@ load_data <- function(folder) {
 #  dir() |> 
 c("etage", "jardin" ) |> 
   purrr::map_chr(load_data) |> 
-  cat(file = "README.md", sep = "\n")
+  cat(file = "README.md", sep = "\n\n")
 
-folder <- "jardin"
+#folder <- "jardin"
 
 
 #####################################
