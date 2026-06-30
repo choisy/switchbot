@@ -1,0 +1,75 @@
+---
+title: "Data explorations"
+number-sections: true
+format:
+  html:
+    toc: true
+    toc-depth: 4
+editor: source
+editor_options: 
+  chunk_output_type: console
+#bibliography: references.bib
+#csl: the-american-naturalist.csl
+---
+
+```{r include = FALSE, eval = FALSE}
+# The code that adds the .nojekyll file to the GitHub repository:
+file <- ".nojekyll"
+file.create(file)
+gert::git_add(file)
+gert::git_commit("Adding the .nojekyll file")
+gert::git_push()
+rm(file)
+```
+
+```{r include = FALSE, eval = FALSE}
+run_all <- function() {
+  knitr::purl("index.qmd", "tmp.R", documentation = FALSE)
+  source("tmp.R")
+  file.remove("tmp.R")  
+}
+
+rerun_all <- function() {
+  rm(list  = grep("run_all", ls(envir = .GlobalEnv), value = TRUE, invert = TRUE),
+     envir = .GlobalEnv)
+  run_all()
+}
+```
+
+
+## Constants
+
+The path to the data and cache folders on the local computer:
+
+```{r}
+if (Sys.getenv("USER") == "MarcChoisy" | Sys.getenv("USER") == "marc") {
+  OneDrive <- "~/Library/CloudStorage/OneDrive-OxfordUniversityClinicalResearchUnit/"
+  data_folder  <- paste0(OneDrive, "SharePoint/OUCRU Modelling/08RS/data/")
+  cache_folder <- paste0(OneDrive, "GitHub/choisy/08RS/cache/")
+  manual_cache_folder <- paste0(OneDrive, "GitHub/choisy/08RS/manual_cache/")
+}
+if (! dir.exists(cache_folder)) dir.create(cache_folder)
+if (! dir.exists(manual_cache_folder)) dir.create(manual_cache_folder)
+```
+
+```{r include = FALSE}
+setHook("plot.new", NULL, action = "replace")
+
+par2 <- function(...) par(..., mgp = c(1.5, .5, 0), bty = "n")
+
+knitr::knit_hooks$set(
+  margin = function(before, options, envir) {
+    if (before) par2(plt = c(.105, .97, .15, .95)) else NULL
+  })
+
+figw <- 7  # default is 7 and maximum possible is 8.3
+figh <- 5  # default is 5
+eps <- .7
+
+knitr::opts_chunk$set(cache.path = cache_folder,
+                      margin     = TRUE,
+                      fig.retina = 2,
+                      fig.align  = "center",
+                      fig.width  = eps * figw,
+                      fig.height = eps * figh) 
+```
